@@ -15,6 +15,7 @@ export default function PortalSupport() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    setTimeout(() => setLoading(true), 0);
     let unsubscribe: () => void;
     if (userProfile?.uid) {
       if (ghostMode) {

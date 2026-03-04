@@ -13,6 +13,7 @@ export default function PortalDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setTimeout(() => setLoading(true), 0);
     let unsubscribe: () => void;
     if (userProfile?.uid) {
       if (ghostMode) {

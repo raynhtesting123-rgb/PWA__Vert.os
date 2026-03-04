@@ -124,7 +124,7 @@ export default function ClientsPage() {
                         value={formData.infrastructure?.uptime || 0}
                         onChange={(e) => setFormData({
                           ...formData,
-                          infrastructure: { ...formData.infrastructure!, uptime: parseFloat(e.target.value) }
+                          infrastructure: { ...(formData.infrastructure || { uptime: 0, responseTime: 0, lcp: 0, cls: 0 }), uptime: parseFloat(e.target.value) }
                         })}
                       />
                     </div>
@@ -136,7 +136,7 @@ export default function ClientsPage() {
                         value={formData.infrastructure?.responseTime || 0}
                         onChange={(e) => setFormData({
                           ...formData,
-                          infrastructure: { ...formData.infrastructure!, responseTime: parseInt(e.target.value) }
+                          infrastructure: { ...(formData.infrastructure || { uptime: 0, responseTime: 0, lcp: 0, cls: 0 }), responseTime: parseInt(e.target.value) }
                         })}
                       />
                     </div>
@@ -149,7 +149,7 @@ export default function ClientsPage() {
                         value={formData.infrastructure?.lcp || 0}
                         onChange={(e) => setFormData({
                           ...formData,
-                          infrastructure: { ...formData.infrastructure!, lcp: parseFloat(e.target.value) }
+                          infrastructure: { ...(formData.infrastructure || { uptime: 0, responseTime: 0, lcp: 0, cls: 0 }), lcp: parseFloat(e.target.value) }
                         })}
                       />
                     </div>
@@ -162,7 +162,7 @@ export default function ClientsPage() {
                         value={formData.infrastructure?.cls || 0}
                         onChange={(e) => setFormData({
                           ...formData,
-                          infrastructure: { ...formData.infrastructure!, cls: parseFloat(e.target.value) }
+                          infrastructure: { ...(formData.infrastructure || { uptime: 0, responseTime: 0, lcp: 0, cls: 0 }), cls: parseFloat(e.target.value) }
                         })}
                       />
                     </div>
@@ -186,7 +186,7 @@ export default function ClientsPage() {
                       value={formData.migration?.currentDay || 1}
                       onChange={(e) => setFormData({
                         ...formData,
-                        migration: { ...formData.migration!, currentDay: parseInt(e.target.value) }
+                        migration: { ...(formData.migration || { currentDay: 1, phases: [] }), currentDay: parseInt(e.target.value) }
                       })}
                     />
                     <div className="flex justify-between text-[10px] text-zinc-600 mt-1 px-1">

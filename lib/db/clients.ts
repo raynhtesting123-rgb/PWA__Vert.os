@@ -28,8 +28,9 @@ export const createClient = async (data: Omit<ClientData, 'id' | 'createdAt' | '
 
 export const updateClient = async (id: string, data: Partial<ClientData>): Promise<void> => {
   const docRef = doc(db, 'clientData', id);
+  const { id: _, ...updateData } = data as any;
   await updateDoc(docRef, {
-    ...data,
+    ...updateData,
     updatedAt: Date.now(),
   });
 };
