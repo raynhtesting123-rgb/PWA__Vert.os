@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.4), transparent);
+  animation: scanline 3s linear infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+:root {
+  /* Deep Obsidian */
+  --background: #0D0D0D;
+  --foreground: #FAFAFA;
+
+  /* Electric Violet */
+  --primary: #7C3AED;
+  --primary-foreground: #FFFFFF;
+
+  /* Slate Grey */
+  --muted-foreground: #8E8E93;
+  
+  /* Card Background (Slightly lighter than obsidian) */
+  --card: #141414;
+  --card-foreground: #FAFAFA;
+  
+  /* Borders */
+  --border: #27272A;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background-color: rgba(124, 58, 237, 0.3); /* Electric Violet with opacity */
+  color: white;
+}

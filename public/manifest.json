@@ -1,0 +1,17 @@
+{
+  "name": "Vekt Client Portal",
+  "short_name": "Vekt Portal",
+  "description": "Monitor and manage your headless infrastructure.",
+  "start_url": "/portal",
+  "scope": "/portal",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
