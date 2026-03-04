@@ -24,7 +24,7 @@ export default function PortalSupport() {
           setLoading(false);
         });
       } else if (userProfile.email) {
-        unsubscribe = subscribeToClientDataByEmail(userProfile.email, (data) => {
+        unsubscribe = subscribeToClientData(userProfile.email.toLowerCase().trim(), (data) => {
           setClientData(data);
           setLoading(false);
         });

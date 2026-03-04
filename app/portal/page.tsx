@@ -23,8 +23,8 @@ export default function PortalDashboard() {
           setLoading(false);
         });
       } else if (userProfile.email) {
-        // For real clients, look up by email
-        unsubscribe = subscribeToClientDataByEmail(userProfile.email, (data) => {
+        // For real clients, use email as the document ID
+        unsubscribe = subscribeToClientData(userProfile.email.toLowerCase().trim(), (data) => {
           setClientData(data);
           setLoading(false);
         });

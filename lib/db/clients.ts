@@ -18,12 +18,14 @@ export const getClient = async (id: string): Promise<ClientData | null> => {
 };
 
 export const createClient = async (data: Omit<ClientData, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> => {
-  const docRef = await addDoc(collection(db, 'clientData'), {
+  const docId = data.email ? data.email.toLowerCase().trim() : collection(db, 'clientData').id; // fallback to auto id if no email
+  const docRef = doc(db, 'clientData', docId);
+  await setDoc(docRef, {
     ...data,
     createdAt: Date.now(),
     updatedAt: Date.now(),
   });
-  return docRef.id;
+  return docId;
 };
 
 export const updateClient = async (id: string, data: Partial<ClientData>): Promise<void> => {
@@ -68,7 +70,8 @@ export const subscribeToClientData = (clientId: string, callback: (data: ClientD
 };
 
 export const subscribeToClientDataByEmail = (email: string, callback: (data: ClientData | null) => void) => {
-  const q = query(collection(db, 'clientData'), where('email', '==', email));
+  const cleanEmail = email.trim();
+  const q = query(collection(db, 'clientData'), where('email', '==', cleanEmail));
   return onSnapshot(q, (snapshot) => {
     if (!snapshot.empty) {
       const doc = snapshot.docs[0];
@@ -76,5 +79,8 @@ export const subscribeToClientDataByEmail = (email: string, callback: (data: Cli
     } else {
       callback(null);
     }
+  }, (error) => {
+    console.error("Error subscribing to client data by email:", error);
+    callback(null);
   });
 };

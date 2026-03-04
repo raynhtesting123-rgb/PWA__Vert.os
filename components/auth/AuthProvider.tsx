@@ -59,6 +59,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await createUserProfile(user.uid, { email: user.email || '', role });
             profile = { uid: user.uid, email: user.email || '', role };
           }
+          
+          // Auto-create client data for clients if it doesn't exist
+          if (profile.role === 'client' && user.email) {
+            const { createClient, getClient } = require('@/lib/db/clients');
+            const existingClient = await getClient(user.email.toLowerCase().trim());
+            if (!existingClient) {
+              await createClient({
+                name: user.displayName || 'New Client',
+                email: user.email.toLowerCase().trim(),
+                infrastructure: { uptime: 100, responseTime: 50, lcp: 1.0, cls: 0.01 },
+                migration: { currentDay: 1, phases: [] },
+                assets: [],
+                tickets: [],
+              });
+            }
+          }
+          
           setUserProfile(profile);
         } catch (error) {
           console.error("Error fetching user profile:", error);
